@@ -16,7 +16,9 @@ const loginCtrl = (req, res) => {
       res.status(401).json({ message: "Invalid email or password" });
     } else {
       if (d.password === password) {
-        const token = jwt.sign({ toker: d.email }, process.env.JWT_TOKEN);
+        const token = jwt.sign({ toker: d.email }, process.env.JWT_TOKEN, {
+          expiresIn: "1d", // expires in 24 hours
+        });
         res.status(200).json({
           message: "User logged in successfully",
           name: d,
